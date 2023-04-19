@@ -1,0 +1,47 @@
+<%= form_with(model: question) do |form| %>
+  <% if question.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(question.errors.count, "error") %> prohibited this question from being saved:</h2>
+      <ul>
+        <% question.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div>
+    <%= form.label :quiz_id, style: "display: block" %>
+    <%= form.text_field :quiz_id %>
+  </div>
+  <div>
+    <%= form.label :content, style: "display: block" %>
+    <%= form.text_area :content %>
+  </div>
+  <div class="form-group">
+    <%= form.label :image %>
+    <%= form.file_field :image, class: "form-control" %>
+  </div>
+  <div>
+    <%= form.label :answer1, style: "display: block" %>
+    <%= form.text_field :answer1 %>
+  </div>
+  <div>
+    <%= form.label :answer2, style: "display: block" %>
+    <%= form.text_field :answer2 %>
+  </div>
+  <div>
+    <%= form.label :answer3, style: "display: block" %>
+    <%= form.text_field :answer3 %>
+  </div>
+  <div>
+    <%= form.label :answer4, style: "display: block" %>
+    <%= form.text_field :answer4 %>
+  </div>
+  <div>
+    <%= form.label :correct_answer, style: "display: block" %>
+    <%= form.number_field :correct_answer %>
+  </div>
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

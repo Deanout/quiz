@@ -1,0 +1,17 @@
+<%= form_with(model: quiz, local: true, data: { 
+  controller: "nested-form", nested_form_wrapper_selector_value: ".nested-form-wrapper" 
+  }) do |form| %>
+  <template data-nested-form-target="template">
+    <%= form.fields_for :questions, Question.new, child_index: "NEW_RECORD" do |question_fields| %>
+      <%= render "question_fields", f: question_fields %>
+    <% end %>
+  </template>
+  <%= form.fields_for :questions do |question_fields| %>
+    <%= render "question_fields", f: question_fields %>
+  <% end %>
+  <div data-nested-form-target="target"></div>
+  <button type="button" data-action="nested-form#add">Add Question</button>
+  <div class="actions">
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

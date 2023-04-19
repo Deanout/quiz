@@ -1,0 +1,28 @@
+<p style="color: green"><%= notice %></p>
+<%= form_with(url: quiz_submissions_path(@quiz), local: true, method: :post) do |form| %>
+  <% @quiz.questions.each_with_index do |question, index| %>
+    <div class="card mb-4">
+      <div class="card-body">
+        <h5 class="card-title">Question <%= index + 1 %>:</h5>
+        <p class="card-text"><%= question.content %></p>
+        <% if question.image.attached? %>
+          <%= image_tag question.image, class: "img-fluid mb-3" %>
+        <% end %>
+        <% 1.upto(4) do |answer_index| %>
+          <div class="form-check">
+            <%= form.radio_button "question_#{question.id}", answer_index, class: "form-check-input" %>
+            <%= form.label "question_#{question.id}_#{answer_index}", question.send("answer#{answer_index}"), class: "form-check-label" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <div class="text-center">
+    <%= form.submit "Submit Quiz", class: "btn btn-primary" %>
+  </div>
+<% end %>
+<div>
+  <%= link_to "Edit this quiz", edit_quiz_path(@quiz) %> |
+  <%= link_to "Back to quizzes", quizzes_path %>
+  <%= button_to "Destroy this quiz", @quiz, method: :delete %>
+</div>
